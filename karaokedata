@@ -1,0 +1,172 @@
+INSERT INTO SONG (ARTISTNAME, TITLE) VALUES
+('The Beatles', 'Hey Jude'),
+('Adele', 'Someone Like You'),
+('Ed Sheeran', 'Shape of You'),
+('Elton John', 'Rocket Man'),
+('Taylor Swift', 'Shake It Off'),
+('Queen', 'Bohemian Rhapsody'),
+('Bill Withers', 'Lean on Me'),
+('John Legend', 'All of Me'),
+('Bruno Mars', 'Uptown Funk'),
+('Michael Jackson', 'Billie Jean'),
+('The Rolling Stones', 'Paint It Black'),
+('Ariana Grande', 'Thank U, Next'),
+('Whitney Houston', 'I Will Always Love You'),
+('Katy Perry', 'Firework'),
+('Ed Sheeran', 'Perfect'),
+('Imagine Dragons', 'Radioactive'),
+('Lady Gaga', 'Bad Romance'),
+('Beyoncé', 'Halo'),
+('Sam Smith', 'Stay With Me'),
+('Rihanna', 'Diamonds'),
+('Drake', 'Hotline Bling'),
+('Shakira', 'Hips Don’t Lie'),
+('Maroon 5', 'Sugar'),
+('Post Malone', 'Circles'),
+('Coldplay', 'Fix You'),
+('Taylor Swift', 'Love Story'),
+('Sia', 'Chandelier'),
+('The Weeknd', 'Blinding Lights'),
+('Billie Eilish', 'Bad Guy'),
+('Lizzo', 'Truth Hurts');
+
+INSERT INTO USER (FNAME, LNAME) VALUES
+('John', 'Doe'),
+('Jane', 'Smith'),
+('Alice', 'Johnson'),
+('Bob', 'Brown'),
+('Charlie', 'Davis'),
+('Diana', 'Miller'),
+('Eva', 'Garcia'),
+('Frank', 'Wilson'),
+('Grace', 'Moore'),
+('Henry', 'Taylor');
+
+INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES
+('S', 1, 1, 10.50, '2024-11-25 08:00:00'),
+('S', 2, 2, 12.00, '2024-11-25 08:15:00'),
+('S', 3, 3, 8.75, '2024-11-25 08:30:00'),
+('S', 4, 4, 9.50, '2024-11-25 08:45:00'),
+('S', 5, 5, 7.80, '2024-11-25 09:00:00');
+
+INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES
+('S', 6, 6, 11.25, '2024-11-25 09:15:00'),
+('S', 7, 7, 10.00, '2024-11-25 09:30:00'),
+('S', 8, 8, 13.50, '2024-11-25 09:45:00'),
+('S', 9, 9, 12.75, '2024-11-25 10:00:00'),
+('S', 10, 10, 14.00, '2024-11-25 10:15:00');
+
+INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES
+('P', 1, 11, 15.00, '2024-11-25 10:30:00'),
+('P', 2, 12, 16.00, '2024-11-25 10:45:00'),
+('P', 3, 13, 13.50, '2024-11-25 11:00:00'),
+('P', 4, 14, 11.75, '2024-11-25 11:15:00'),
+('P', 5, 15, 12.00, '2024-11-25 11:30:00');
+
+INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES
+('S', 6, 16, 9.25, '2024-11-25 11:45:00'),
+('S', 7, 17, 8.50, '2024-11-25 12:00:00'),
+('S', 8, 18, 10.00, '2024-11-25 12:15:00'),
+('S', 9, 19, 9.75, '2024-11-25 12:30:00'),
+('S', 10, 20, 7.80, '2024-11-25 12:45:00');
+
+INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES
+('P', 1, 21, 14.50, '2024-11-25 13:00:00'),
+('P', 2, 22, 15.75, '2024-11-25 13:15:00'),
+('P', 3, 23, 13.25, '2024-11-25 13:30:00'),
+('P', 4, 24, 11.00, '2024-11-25 13:45:00'),
+('P', 5, 25, 12.50, '2024-11-25 14:00:00');
+
+INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES
+('S', 6, 26, 12.25, '2024-11-25 14:15:00'),
+('S', 7, 27, 10.50, '2024-11-25 14:30:00'),
+('S', 8, 28, 11.75, '2024-11-25 14:45:00'),
+('S', 9, 29, 13.00, '2024-11-25 15:00:00'),
+('S', 10, 30, 12.50, '2024-11-25 15:15:00');
+
+INSERT INTO KARAOKEFILE (SONGID, VERSION) VALUES
+(1, 'Original'),
+(2, 'Remix'),
+(3, 'Live'),
+(4, 'Studio'),
+(5, 'Acoustic');
+
+INSERT INTO CONTRIBUTOR (LNAME) VALUES
+('Lennon'),
+('McCartney'),
+('Adams'),
+('Sheeran'),
+('Swift'),
+('Mercury'),
+('Withers'),
+('Legend'),
+('Mars'),
+('Jackson'),
+('Jagger'),
+('Grande'),
+('Houston'),
+('Perry'),
+('Sheeran'),
+('Dragons'),
+('Gaga'),
+('Beyoncé'),
+('Smith'),
+('Rihanna'),
+('Drake'),
+('Shakira'),
+('Levine'),
+('Malone'),
+('Martin'),
+('Swift'),
+('Sia'),
+('Weeknd'),
+('Eilish');
+
+INSERT INTO CONTRIBUTE (SONGID, CONTRIBUTORID, CONTRIBUTIONTYPE) VALUES
+(1, 1, 'Lyrics'),
+(1, 2, 'Music'),
+(2, 3, 'Lyrics'),
+(2, 4, 'Music'),
+(3, 5, 'Lyrics'),
+(3, 6, 'Music'),
+(4, 7, 'Lyrics'),
+(4, 8, 'Music'),
+(5, 9, 'Arrangement'),
+(5, 10, 'Lyrics'),
+(6, 11, 'Music'),
+(6, 12, 'Arrangement'),
+(7, 13, 'Lyrics'),
+(7, 14, 'Music'),
+(8, 15, 'Arrangement'),
+(8, 16, 'Music'),
+(9, 17, 'Lyrics'),
+(9, 18, 'Music'),
+(10, 19, 'Lyrics'),
+(10, 20, 'Music'),
+(11, 21, 'Arrangement'),
+(11, 22, 'Lyrics'),
+(12, 23, 'Music'),
+(12, 24, 'Arrangement'),
+(13, 25, 'Lyrics'),
+(13, 26, 'Music'),
+(14, 27, 'Arrangement'),
+(14, 28, 'Lyrics'),
+(15, 27, 'Music'),
+(15, 21, 'Lyrics'),
+(16, 1, 'Arrangement'),
+(17, 2, 'Music'),
+(18, 3, 'Arrangement'),
+(19, 4, 'Lyrics'),
+(20, 5, 'Music'),
+(21, 6, 'Arrangement'),
+(22, 7, 'Music'),
+(23, 8, 'Lyrics'),
+(24, 9, 'Arrangement'),
+(25, 10, 'Music'),
+(26, 11, 'Lyrics'),
+(27, 12, 'Arrangement'),
+(28, 13, 'Music'),
+(29, 14, 'Lyrics'),
+(30, 15, 'Arrangement');
+
+
