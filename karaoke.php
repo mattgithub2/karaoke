@@ -1,11 +1,10 @@
 <?php
-    session_start();
 
-    $username = 'z2003465';
-    $password = '2004Nov02';
+    $username = 'matt';
+    $password = '12321';
 
 try {
-    $dsn = "mysql:host=courses;dbname=z2003465";
+    $dsn = "mysql:host=localhost;dbname=karaoke";
     $pdo = new PDO($dsn, $username, $password);
 
     echo "
@@ -23,14 +22,8 @@ try {
         <button type='submit'>Search</button>
     </form>";
 
-
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['search_query'])) {
-        $song = $pdo->prepare('SELECT * FROM SONG WHERE TITLE = :title GROUP BY TITLE');
-        $song->execute(['title' => $_POST['search_query']]);
-        $search_query = $song->fetchAll(PDO::FETCH_ASSOC);
 
-
-        //switch case
         switch ($_POST['search_criteria']) {
             case 'title':
                 $song = $pdo->prepare('SELECT * FROM SONG WHERE TITLE = :title GROUP BY TITLE');
@@ -41,32 +34,36 @@ try {
                     echo "Song Not Available!";
                 }
                 else {
-                    $song_id = $search_criteria[0]['SONGID'];
-                    $_SESSION['song_id'] = $song_id;
+                    $song_id = $search_query[0]['SONGID'];
+                    $artist = $search_query[0]['ARTIST'];
 
                     echo "
                         <form action='karaoke.php' method='POST'>
                         <label>Would You Like to Sing this song?</label><br>
                         <input type='hidden' name='song_id' value='$song_id'>
+                        <input type='hidden' name='artist' value='$artist'>
                         <input type='submit' value='Yes' name='yes_for_sing'>
                         <input type='submit' value='No' name='no_for_sing'>
                         </form>";
-                    $_SESSION['yes_for_sing'] = $_POST['yes_for_sing'];
                     }
                 break;
+
             case 'artist':
                 $artist = $pdo->prepare(
-                'SELECT SONG.*, LNAME
+                    'SELECT SONG.*, LNAME
                     FROM SONG,CONTRIBUTOR, CONTRIBUTE
                     WHERE SONG.SONGID = CONTRIBUTE.SONGID
                     AND CONTRIBUTOR.CONTRIBUTORID = CONTRIBUTE.CONTRIBUTORID
                     AND SONG.ARTIST = :artist');
+
                 $artist->execute(['artist' => $_POST['search_query']]);
                 $search_query = $artist->fetchAll(PDO::FETCH_ASSOC);
 
                 if (empty($search_query)) {
                     echo "Artist Not Available!";
-                } else {
+                }
+
+                else {
                     // Display the songs by the artist
                     $artist = htmlspecialchars($_POST['search_query']);
                     echo "<h3>Songs by $artist</h3>";
@@ -93,18 +90,19 @@ try {
                 }
                 break;
             case 'contributor':
-
                 $contributor = $pdo->prepare(
                 'SELECT SONG.*
                     FROM SONG
                     JOIN CONTRIBUTE ON SONG.SONGID = CONTRIBUTE.SONGID
                     JOIN CONTRIBUTOR ON CONTRIBUTE.CONTRIBUTORID = CONTRIBUTOR.CONTRIBUTORID
                     WHERE CONTRIBUTOR.LNAME LIKE :contributor');
+
                 $contributor->execute(['contributor' => $_POST['search_query']]);
                 $search_query = $contributor->fetchAll(PDO::FETCH_ASSOC);
 
                 if (empty($search_query)) {
                     echo "Contributor Not Available!";
+
                 } else {
                     // Display the songs by the artist
                     $artist = htmlspecialchars($_POST['search_query']);
@@ -134,33 +132,30 @@ try {
                 break;
             default:
                 break;
-
         }
     }
 
-    var_dump($_SESSION);
-
     if (isset($_POST['yes_for_sing'])) {
-        $song_id = $_SESSION['song_id'];
-               $song = $pdo->prepare(
-                'SELECT TITLE, ARTIST, VERSION
+        $song_id = $_POST['song_id'];
+        $song = $pdo->prepare(
+                "SELECT TITLE, ARTIST, VERSION
                 from KARAOKEFILE
                 Join SONG on SONG.SONGID = KARAOKEFILE.SONGID
-                WHERE KARAOKEFILE.SONGID = $song_id;');
-        $song->execute();
+                WHERE KARAOKEFILE.SONGID = :song_id");
+        $song->execute(['song_id' => $song_id]);
         $search_query = $song->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($search_query);
 
         if (empty($search_query)) {
             echo "Contributor Not Available!";
         }
+
         else {
             // Display the songs by the artist
-            $artist = htmlspecialchars($_POST['search_query']);
-            echo "<h3>Songs Contributed by $artist</h3>";
+            $artist = htmlspecialchars($_POST['artist']);
+            echo "<h3>Select a version</h3>";
             echo "<form action='karaoke.php' method='POST'>";
             echo "<table border='1'>";
-            echo "<tr><th>Song Title</th><th>Artist</th><th>Action</th></tr>";
+            echo "<tr><th>Song Title</th><th>Artist</th><th>Version</th></tr>";
 
             foreach ($search_query as $song) {
                 $song_id = $song['SONGID'];
@@ -192,7 +187,6 @@ try {
             <button type='submit'>Submit</button>
             </form>";
 
-
     }
     if (isset($_POST['fname'])) {
         echo "
@@ -217,7 +211,6 @@ try {
             $stmt = $pdo->prepare("INSERT INTO PICK (QUEUETYPE, USERID, SONGID, PAID, TIME) VALUES ('F', :user_id, :song_id, 0.00, NOW())");
             $stmt->execute(['user_id' => $user_id, 'song_id' => $song_id]);
         }
-
 
     }
 
